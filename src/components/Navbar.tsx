@@ -22,7 +22,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-xl font-bold" onClick={closeMenu}>
-          SHUTTER
+          RK Studio
         </Link>
 
         {isMobile ? (

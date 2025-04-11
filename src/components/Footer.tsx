@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">SHUTTER</h3>
+            <h3 className="text-lg font-semibold mb-4">RK Studio</h3>
             <p className="text-muted-foreground">
               Capturing moments that last forever. Professional photography services for all your needs.
             </p>
@@ -37,19 +37,19 @@ const Footer = () => {
               <a href="#" className="hover:text-foreground text-muted-foreground" aria-label="Twitter">
                 <Twitter />
               </a>
-              <a href="mailto:contact@shutter.com" className="hover:text-foreground text-muted-foreground" aria-label="Email">
+              <a href="mailto:contact@rkstudio.com" className="hover:text-foreground text-muted-foreground" aria-label="Email">
                 <Mail />
               </a>
             </div>
             <p className="mt-4 text-muted-foreground">
-              Email: contact@shutter.com<br />
+              Email: contact@rkstudio.com<br />
               Phone: (123) 456-7890
             </p>
           </div>
         </div>
         
         <div className="mt-12 pt-6 border-t border-border text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} SHUTTER. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} RK Studio. All rights reserved.</p>
         </div>
       </div>
     </footer>
