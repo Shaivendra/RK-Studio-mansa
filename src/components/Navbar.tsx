@@ -62,6 +62,9 @@ const NavLinks = ({ onClick }: { onClick: () => void }) => (
     <Link to="/videos" className="hover:text-primary/80 transition-colors" onClick={onClick}>
       Videos
     </Link>
+    <Link to="/photographer" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+      Photographer
+    </Link>
     <Link to="/about" className="hover:text-primary/80 transition-colors" onClick={onClick}>
       About
     </Link>

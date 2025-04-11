@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
 import Videos from "./pages/Videos";
 import About from "./pages/About";
+import Photographer from "./pages/Photographer";
 import PhotoDetail from "./pages/PhotoDetail";
 import VideoDetail from "./pages/VideoDetail";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/about" element={<About />} />
+          <Route path="/photographer" element={<Photographer />} />
           <Route path="/photo/:id" element={<PhotoDetail />} />
           <Route path="/video/:id" element={<VideoDetail />} />
           <Route path="*" element={<NotFound />} />
