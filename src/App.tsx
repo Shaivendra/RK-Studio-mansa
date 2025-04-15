@@ -12,6 +12,10 @@ import Photographer from "./pages/Photographer";
 import PhotographerDetail from "./pages/PhotographerDetail";
 import PhotoDetail from "./pages/PhotoDetail";
 import VideoDetail from "./pages/VideoDetail";
+import WeddingPhotography from "./pages/services/WeddingPhotography";
+import PortraitSessions from "./pages/services/PortraitSessions";
+import CommercialPhotography from "./pages/services/CommercialPhotography";
+import EventCoverage from "./pages/services/EventCoverage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,4 +47,3 @@ const App = () => (
 );
 
 export default App;
-
