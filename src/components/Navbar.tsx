@@ -25,28 +25,30 @@ const Navbar = () => {
           RK Studio
         </Link>
 
-        {isMobile ? (
+        <div className="flex items-center space-x-8">
+          <NavLinks onClick={closeMenu} />
+        </div>
+
+        {isMobile && (
           <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle menu">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
-        ) : (
-          <div className="flex items-center space-x-8">
-            <NavLinks onClick={() => {}} />
-          </div>
         )}
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={cn(
-          "fixed inset-0 bg-background pt-20 px-4 transition-transform duration-300 ease-in-out z-40",
-          isOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <div className="flex flex-col space-y-6 text-xl">
-          <NavLinks onClick={closeMenu} />
+      {/* Mobile menu overlay */}
+      {isMobile && (
+        <div
+          className={cn(
+            "fixed inset-0 bg-background pt-20 px-4 transition-transform duration-300 ease-in-out z-40",
+            isOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
+          <div className="flex flex-col space-y-6 text-xl">
+            <NavLinks onClick={closeMenu} />
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };
