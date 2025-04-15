@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Camera, Heart, Users, Building, Gift } from 'lucide-react';
@@ -27,9 +26,39 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold" onClick={closeMenu}>
-          RK Studio
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link to="/" className="text-xl font-bold" onClick={closeMenu}>
+            RK Studio
+          </Link>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger className="hover:text-primary/80 transition-colors">
+              Services
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuItem asChild>
+                <Link to="/services/wedding" className="flex items-center">
+                  <Heart className="mr-2 h-4 w-4" /> Wedding Photography
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/services/portrait" className="flex items-center">
+                  <Users className="mr-2 h-4 w-4" /> Portrait Sessions
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/services/commercial" className="flex items-center">
+                  <Building className="mr-2 h-4 w-4" /> Commercial Photography
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/services/events" className="flex items-center">
+                  <Gift className="mr-2 h-4 w-4" /> Event Coverage
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         <div className="flex items-center space-x-8">
           <NavLinks onClick={closeMenu} />
@@ -67,33 +96,6 @@ const NavLinks = ({ onClick }: { onClick: () => void }) => (
     <Link to="/gallery" className="hover:text-primary/80 transition-colors" onClick={onClick}>
       Gallery
     </Link>
-    <DropdownMenu>
-      <DropdownMenuTrigger className="hover:text-primary/80 transition-colors">
-        Services
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-56">
-        <DropdownMenuItem asChild>
-          <Link to="/services/wedding" className="flex items-center">
-            <Heart className="mr-2 h-4 w-4" /> Wedding Photography
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/services/portrait" className="flex items-center">
-            <Users className="mr-2 h-4 w-4" /> Portrait Sessions
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/services/commercial" className="flex items-center">
-            <Building className="mr-2 h-4 w-4" /> Commercial Photography
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/services/events" className="flex items-center">
-            <Gift className="mr-2 h-4 w-4" /> Event Coverage
-          </Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
     <Link to="/videos" className="hover:text-primary/80 transition-colors" onClick={onClick}>
       Videos
     </Link>
@@ -107,4 +109,3 @@ const NavLinks = ({ onClick }: { onClick: () => void }) => (
 );
 
 export default Navbar;
-
