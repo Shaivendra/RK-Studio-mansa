@@ -31,6 +31,10 @@ const App = () => (
           <Route path="/photographer/:id" element={<PhotographerDetail />} />
           <Route path="/photo/:id" element={<PhotoDetail />} />
           <Route path="/video/:id" element={<VideoDetail />} />
+          <Route path="/services/wedding" element={<WeddingPhotography />} />
+          <Route path="/services/portrait" element={<PortraitSessions />} />
+          <Route path="/services/commercial" element={<CommercialPhotography />} />
+          <Route path="/services/events" element={<EventCoverage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
@@ -39,3 +43,4 @@ const App = () => (
 );
 
 export default App;
+
