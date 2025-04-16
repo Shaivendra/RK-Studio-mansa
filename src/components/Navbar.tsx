@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from '@/providers/AuthProvider';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,51 +59,70 @@ const Navbar = () => {
   );
 };
 
-const NavLinks = ({ onClick }: { onClick: () => void }) => (
-  <>
-    <Link to="/" className="hover:text-primary/80 transition-colors" onClick={onClick}>
-      Home
-    </Link>
-    <Link to="/gallery" className="hover:text-primary/80 transition-colors" onClick={onClick}>
-      Gallery
-    </Link>
-    <Link to="/videos" className="hover:text-primary/80 transition-colors" onClick={onClick}>
-      Videos
-    </Link>
-    <Link to="/photographer" className="hover:text-primary/80 transition-colors" onClick={onClick}>
-      Photographer
-    </Link>
-    <DropdownMenu>
-      <DropdownMenuTrigger className="hover:text-primary/80 transition-colors">
-        Services
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-56">
-        <DropdownMenuItem asChild>
-          <Link to="/services/wedding" className="flex items-center">
-            <Heart className="mr-2 h-4 w-4" /> Wedding Photography
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/services/portrait" className="flex items-center">
-            <Users className="mr-2 h-4 w-4" /> Portrait Sessions
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/services/commercial" className="flex items-center">
-            <Building className="mr-2 h-4 w-4" /> Commercial Photography
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/services/events" className="flex items-center">
-            <Gift className="mr-2 h-4 w-4" /> Event Coverage
-          </Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-    <Link to="/about" className="hover:text-primary/80 transition-colors" onClick={onClick}>
-      About
-    </Link>
-  </>
-);
+const NavLinks = ({ onClick }: { onClick: () => void }) => {
+  const { user } = useAuth();
+
+  return (
+    <>
+      <Link to="/" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+        Home
+      </Link>
+      <Link to="/gallery" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+        Gallery
+      </Link>
+      <Link to="/videos" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+        Videos
+      </Link>
+      <Link to="/photographer" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+        Photographer
+      </Link>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="hover:text-primary/80 transition-colors">
+          Services
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-56">
+          <DropdownMenuItem asChild>
+            <Link to="/services/wedding" className="flex items-center">
+              <Heart className="mr-2 h-4 w-4" /> Wedding Photography
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/services/portrait" className="flex items-center">
+              <Users className="mr-2 h-4 w-4" /> Portrait Sessions
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/services/commercial" className="flex items-center">
+              <Building className="mr-2 h-4 w-4" /> Commercial Photography
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/services/events" className="flex items-center">
+              <Gift className="mr-2 h-4 w-4" /> Event Coverage
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Link to="/about" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+        About
+      </Link>
+      {!user ? (
+        <Link to="/auth" className="hover:text-primary/80 transition-colors" onClick={onClick}>
+          Sign In
+        </Link>
+      ) : (
+        <button
+          onClick={async () => {
+            await supabase.auth.signOut();
+            onClick();
+          }}
+          className="hover:text-primary/80 transition-colors"
+        >
+          Sign Out
+        </button>
+      )}
+    </>
+  );
+};
 
 export default Navbar;
