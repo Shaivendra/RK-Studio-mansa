@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -46,28 +45,28 @@ const CommercialPhotography = () => {
               <p className="text-muted-foreground mb-4">
                 High-quality product images for e-commerce, catalogs, and marketing materials.
               </p>
-              <p className="font-medium">Starting at $75 per product</p>
+              <p className="font-medium">Starting at ₹6,000 per product</p>
             </div>
             <div className="bg-muted p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-3">Corporate Portraits</h3>
               <p className="text-muted-foreground mb-4">
                 Professional headshots and team photos for your website and marketing.
               </p>
-              <p className="font-medium">Starting at $150 per person</p>
+              <p className="font-medium">Starting at ₹12,000 per person</p>
             </div>
             <div className="bg-muted p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-3">Real Estate</h3>
               <p className="text-muted-foreground mb-4">
                 Interior and exterior photography to showcase properties at their best.
               </p>
-              <p className="font-medium">Starting at $300 per property</p>
+              <p className="font-medium">Starting at ₹25,000 per property</p>
             </div>
             <div className="bg-muted p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-3">Food Photography</h3>
               <p className="text-muted-foreground mb-4">
                 Appetizing images of your culinary creations for menus and advertising.
               </p>
-              <p className="font-medium">Starting at $400 per session</p>
+              <p className="font-medium">Starting at ₹32,000 per session</p>
             </div>
           </div>
         </div>

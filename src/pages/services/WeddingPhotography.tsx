@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -52,7 +51,7 @@ const WeddingPhotography = () => {
                   <li>• Online gallery</li>
                   <li>• One photographer</li>
                 </ul>
-                <p className="font-semibold">From $1,800</p>
+                <p className="font-semibold">From ₹1,45,000</p>
               </div>
               <div className="bg-background p-6 rounded-md shadow-sm border-2 border-primary">
                 <h3 className="text-xl font-medium mb-3">Premium</h3>
@@ -63,7 +62,7 @@ const WeddingPhotography = () => {
                   <li>• Two photographers</li>
                   <li>• Engagement session</li>
                 </ul>
-                <p className="font-semibold">From $2,800</p>
+                <p className="font-semibold">From ₹2,25,000</p>
               </div>
               <div className="bg-background p-6 rounded-md shadow-sm">
                 <h3 className="text-xl font-medium mb-3">Luxury</h3>
@@ -75,7 +74,7 @@ const WeddingPhotography = () => {
                   <li>• Engagement session</li>
                   <li>• Wedding album</li>
                 </ul>
-                <p className="font-semibold">From $3,800</p>
+                <p className="font-semibold">From ₹3,05,000</p>
               </div>
             </div>
           </div>
