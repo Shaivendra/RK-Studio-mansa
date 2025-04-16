@@ -19,36 +19,42 @@ import CommercialPhotography from "./pages/services/CommercialPhotography";
 import EventCoverage from "./pages/services/EventCoverage";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import React from "react";
 
+// Create QueryClient instance outside the component
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/videos" element={<Videos />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/photographer" element={<Photographer />} />
-            <Route path="/photographer/:id" element={<PhotographerDetail />} />
-            <Route path="/photo/:id" element={<PhotoDetail />} />
-            <Route path="/video/:id" element={<VideoDetail />} />
-            <Route path="/services/wedding" element={<WeddingPhotography />} />
-            <Route path="/services/portrait" element={<PortraitSessions />} />
-            <Route path="/services/commercial" element={<CommercialPhotography />} />
-            <Route path="/services/events" element={<EventCoverage />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/videos" element={<Videos />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/photographer" element={<Photographer />} />
+                <Route path="/photographer/:id" element={<PhotographerDetail />} />
+                <Route path="/photo/:id" element={<PhotoDetail />} />
+                <Route path="/video/:id" element={<VideoDetail />} />
+                <Route path="/services/wedding" element={<WeddingPhotography />} />
+                <Route path="/services/portrait" element={<PortraitSessions />} />
+                <Route path="/services/commercial" element={<CommercialPhotography />} />
+                <Route path="/services/events" element={<EventCoverage />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
+  );
+};
 
 export default App;
