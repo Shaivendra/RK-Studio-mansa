@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Users, Building, Gift, X } from 'lucide-react';
+import { Heart, Users, Building, Gift, X, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -69,6 +69,7 @@ const Navbar = () => {
                 <div className="flex flex-col items-center justify-center space-y-8 text-2xl font-bold">
                   <MobileNavLink to="/" label="Home" onClick={closeMenu} />
                   <MobileNavLink to="/gallery" label="Work" onClick={closeMenu} />
+                  <MobileNavLink to="/photographer" label="Photographer" onClick={closeMenu} />
                   <MobileNavLink to="/about" label="About" onClick={closeMenu} />
                   <MobileNavLink to="/about" label="Contact" onClick={closeMenu} />
                   <MobileAuthButton onClick={closeMenu} />
