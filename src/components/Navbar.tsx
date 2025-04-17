@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Users, Building, Gift } from 'lucide-react';
+import { Heart, Users, Building, Gift, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -13,6 +13,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from '@/providers/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetClose
+} from "@/components/ui/sheet";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,34 +45,72 @@ const Navbar = () => {
         </div>
 
         {isMobile && (
-          <button 
-            onClick={toggleMenu} 
-            className="block p-2 rounded-md border border-gray-300"
-            aria-label="Toggle menu"
-          >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-            </div>
-          </button>
+          <>
+            <button 
+              onClick={toggleMenu} 
+              className="block p-2 rounded-md border border-gray-300"
+              aria-label="Toggle menu"
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+              </div>
+            </button>
+
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetContent className="w-full sm:max-w-md">
+                <SheetHeader className="text-left border-b pb-4 mb-4">
+                  <SheetTitle className="text-2xl font-bold">My Portfolio</SheetTitle>
+                  <SheetClose className="absolute right-4 top-4">
+                    <X className="h-6 w-6" />
+                  </SheetClose>
+                </SheetHeader>
+                <div className="flex flex-col items-center justify-center space-y-8 text-2xl font-bold">
+                  <MobileNavLink to="/" label="Home" onClick={closeMenu} />
+                  <MobileNavLink to="/gallery" label="Work" onClick={closeMenu} />
+                  <MobileNavLink to="/about" label="About" onClick={closeMenu} />
+                  <MobileNavLink to="/about" label="Contact" onClick={closeMenu} />
+                  <MobileAuthButton onClick={closeMenu} />
+                </div>
+              </SheetContent>
+            </Sheet>
+          </>
         )}
       </div>
-
-      {/* Mobile menu overlay */}
-      {isMobile && (
-        <div
-          className={cn(
-            "fixed inset-0 bg-background pt-20 px-4 transition-transform duration-300 ease-in-out z-40",
-            isOpen ? "translate-x-0" : "translate-x-full"
-          )}
-        >
-          <div className="flex flex-col space-y-6 text-xl">
-            <NavLinks onClick={closeMenu} />
-          </div>
-        </div>
-      )}
     </nav>
+  );
+};
+
+const MobileNavLink = ({ to, label, onClick }: { to: string; label: string; onClick: () => void }) => {
+  return (
+    <Link to={to} className="w-full text-center py-2" onClick={onClick}>
+      {label}
+    </Link>
+  );
+};
+
+const MobileAuthButton = ({ onClick }: { onClick: () => void }) => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return (
+      <Link to="/auth" className="w-full text-center py-2" onClick={onClick}>
+        Sign In
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      onClick={async () => {
+        await supabase.auth.signOut();
+        onClick();
+      }}
+      className="w-full text-center py-2"
+    >
+      Sign Out
+    </button>
   );
 };
 
