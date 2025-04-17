@@ -25,7 +25,17 @@ const About = () => {
                 socialLinks={photographer.socialLinks}
               />
               
-              <Button className="w-full">Contact Me</Button>
+              <Button 
+                className="w-full mt-4"
+                onClick={() => {
+                  // Scroll to contact form
+                  document.getElementById('contact-form')?.scrollIntoView({ 
+                    behavior: 'smooth' 
+                  });
+                }}
+              >
+                Contact Me
+              </Button>
             </div>
             
             <div className="md:col-span-2">
@@ -35,7 +45,10 @@ const About = () => {
                 equipment={photographer.equipment}
               />
               
-              <ContactForm />
+              <div id="contact-form" className="mt-12 pt-8 border-t border-border">
+                <h2 className="text-3xl font-bold mb-8">Contact Me</h2>
+                <ContactForm />
+              </div>
             </div>
           </div>
         </div>
