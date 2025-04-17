@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Camera, Heart, Users, Building, Gift } from 'lucide-react';
+import { Heart, Users, Building, Gift } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -32,14 +33,22 @@ const Navbar = () => {
           RK Studio
         </Link>
 
-        <div className="flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-8">
           <NavLinks onClick={closeMenu} />
         </div>
 
         {isMobile && (
-          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle menu">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </Button>
+          <button 
+            onClick={toggleMenu} 
+            className="block p-2 rounded-md border border-gray-300"
+            aria-label="Toggle menu"
+          >
+            <div className="w-6 h-5 flex flex-col justify-between">
+              <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+              <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            </div>
+          </button>
         )}
       </div>
 
