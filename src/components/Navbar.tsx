@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Users, Building, Gift, X, Camera } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Heart, Users, Building, Gift, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
@@ -11,8 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuth } from '@/providers/AuthProvider';
-import { supabase } from '@/integrations/supabase/client';
 import {
   Sheet,
   SheetContent,
@@ -72,7 +69,6 @@ const Navbar = () => {
                   <MobileNavLink to="/photographer" label="Photographer" onClick={closeMenu} />
                   <MobileNavLink to="/about" label="About" onClick={closeMenu} />
                   <MobileNavLink to="/about" label="Contact" onClick={closeMenu} />
-                  <MobileAuthButton onClick={closeMenu} />
                 </div>
               </SheetContent>
             </Sheet>
@@ -91,33 +87,7 @@ const MobileNavLink = ({ to, label, onClick }: { to: string; label: string; onCl
   );
 };
 
-const MobileAuthButton = ({ onClick }: { onClick: () => void }) => {
-  const { user } = useAuth();
-
-  if (!user) {
-    return (
-      <Link to="/auth" className="w-full text-center py-2" onClick={onClick}>
-        Sign In
-      </Link>
-    );
-  }
-
-  return (
-    <button
-      onClick={async () => {
-        await supabase.auth.signOut();
-        onClick();
-      }}
-      className="w-full text-center py-2"
-    >
-      Sign Out
-    </button>
-  );
-};
-
 const NavLinks = ({ onClick }: { onClick: () => void }) => {
-  const { user } = useAuth();
-
   return (
     <>
       <Link to="/" className="hover:text-primary/80 transition-colors" onClick={onClick}>
@@ -162,21 +132,6 @@ const NavLinks = ({ onClick }: { onClick: () => void }) => {
       <Link to="/about" className="hover:text-primary/80 transition-colors" onClick={onClick}>
         About
       </Link>
-      {!user ? (
-        <Link to="/auth" className="hover:text-primary/80 transition-colors" onClick={onClick}>
-          Sign In
-        </Link>
-      ) : (
-        <button
-          onClick={async () => {
-            await supabase.auth.signOut();
-            onClick();
-          }}
-          className="hover:text-primary/80 transition-colors"
-        >
-          Sign Out
-        </button>
-      )}
     </>
   );
 };

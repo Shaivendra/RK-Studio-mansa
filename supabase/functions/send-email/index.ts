@@ -40,7 +40,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to studio owner
     const emailResponse = await resend.emails.send({
       from: "RK Studio Contact <onboarding@resend.dev>",
-      to: ["rkstudio4work@gmail.com"],
+      to: ["shivchavda85@gmail.com"],
       subject: formData.subject || "New Contact Form Submission",
       html: `
         <h2>New Contact Form Submission</h2>
