@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Heart, Users, Building, Gift, X, LogIn, LogOut } from 'lucide-react';

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +7,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 import {
   Form,
   FormControl,
@@ -16,6 +16,14 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 // Define schema for form validation
 const formSchema = z.object({
@@ -29,7 +37,9 @@ type FormValues = z.infer<typeof formSchema>;
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -41,7 +51,59 @@ const ContactForm = () => {
     },
   });
 
+  const handleAuth = async (type: 'login' | 'signup') => {
+    try {
+      const email = form.getValues('email');
+      if (!email) {
+        toast({
+          title: "Email required",
+          description: "Please enter your email first",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { error } = type === 'signup' 
+        ? await supabase.auth.signUp({ 
+            email,
+            password: 'temporary-password', // You might want to add a password field
+            options: {
+              data: {
+                name: form.getValues('name'),
+              }
+            }
+          })
+        : await supabase.auth.signInWithPassword({
+            email,
+            password: 'temporary-password', // You might want to add a password field
+          });
+
+      if (error) throw error;
+
+      setShowAuthDialog(false);
+      toast({
+        title: type === 'signup' ? "Check your email" : "Welcome back!",
+        description: type === 'signup' 
+          ? "We've sent you a confirmation email" 
+          : "You're now logged in",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Authentication error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const onSubmit = async (data: FormValues) => {
+    const { data: session } = await supabase.auth.getSession();
+    
+    if (!session?.session) {
+      setShowAuthDialog(true);
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
@@ -58,7 +120,6 @@ const ContactForm = () => {
         description: "We'll get back to you as soon as possible.",
       });
       
-      // Reset form
       form.reset();
     } catch (error: any) {
       console.error('Error sending message:', error);
@@ -146,6 +207,25 @@ const ContactForm = () => {
           </Button>
         </form>
       </Form>
+
+      <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Authentication Required</DialogTitle>
+            <DialogDescription>
+              To send a message, please sign in or create an account.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-4">
+            <Button onClick={() => handleAuth('login')} variant="default">
+              Sign In
+            </Button>
+            <Button onClick={() => handleAuth('signup')} variant="outline">
+              Create Account
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
