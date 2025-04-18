@@ -10,14 +10,15 @@ const About = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-grow py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2">
-              <BookingForm />
-            </div>
-            <div>
+      <main className="flex-grow py-8 px-4 md:py-12">
+        <div className="container mx-auto">
+          <div className="space-y-8 md:space-y-12">
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
               <BusinessInfo />
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+              <BookingForm />
             </div>
           </div>
         </div>

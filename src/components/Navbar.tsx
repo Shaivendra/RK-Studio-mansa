@@ -1,9 +1,12 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, Users, Building, Gift, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Heart, Users, Building, Gift, X, LogIn, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useAuth } from '@/providers/AuthProvider';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +24,13 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -28,6 +38,32 @@ const Navbar = () => {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const AuthButtons = () => {
+    if (user) {
+      return (
+        <Button 
+          onClick={handleLogout}
+          variant="ghost"
+          className="flex items-center gap-2"
+        >
+          <LogOut className="h-4 w-4" />
+          Logout
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        onClick={() => navigate('/auth')}
+        variant="ghost"
+        className="flex items-center gap-2"
+      >
+        <LogIn className="h-4 w-4" />
+        Login
+      </Button>
+    );
   };
 
   return (
@@ -39,31 +75,35 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center space-x-8">
           <NavLinks onClick={closeMenu} />
+          <AuthButtons />
         </div>
 
         {isMobile && (
           <>
-            <button 
-              onClick={toggleMenu} 
-              className="block p-2 rounded-md border border-gray-300"
-              aria-label="Toggle menu"
-            >
-              <div className="w-6 h-5 flex flex-col justify-between">
-                <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-              </div>
-            </button>
+            <div className="flex items-center gap-4">
+              <AuthButtons />
+              <button 
+                onClick={toggleMenu} 
+                className="block p-2 rounded-md border border-gray-300"
+                aria-label="Toggle menu"
+              >
+                <div className="w-6 h-5 flex flex-col justify-between">
+                  <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                  <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                  <span className={`block h-0.5 w-full bg-current transform transition duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                </div>
+              </button>
+            </div>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetContent className="w-full sm:max-w-md">
+              <SheetContent className="w-4/5 sm:max-w-md">
                 <SheetHeader className="text-left border-b pb-4 mb-4">
-                  <SheetTitle className="text-2xl font-bold">My Portfolio</SheetTitle>
+                  <SheetTitle className="text-2xl font-bold">RK Studio</SheetTitle>
                   <SheetClose className="absolute right-4 top-4">
                     <X className="h-6 w-6" />
                   </SheetClose>
                 </SheetHeader>
-                <div className="flex flex-col items-center justify-center space-y-8 text-2xl font-bold">
+                <div className="flex flex-col space-y-6">
                   <MobileNavLink to="/" label="Home" onClick={closeMenu} />
                   <MobileNavLink to="/gallery" label="Work" onClick={closeMenu} />
                   <MobileNavLink to="/photographer" label="Photographer" onClick={closeMenu} />
