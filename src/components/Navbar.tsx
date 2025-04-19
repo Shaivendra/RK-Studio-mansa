@@ -39,32 +39,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  const AuthButtons = () => {
-    if (user) {
-      return (
-        <Button 
-          onClick={handleLogout}
-          variant="ghost"
-          className="flex items-center gap-2"
-        >
-          <LogOut className="h-4 w-4" />
-          Logout
-        </Button>
-      );
-    }
-
-    return (
-      <Button
-        onClick={() => navigate('/auth')}
-        variant="ghost"
-        className="flex items-center gap-2"
-      >
-        <LogIn className="h-4 w-4" />
-        Login
-      </Button>
-    );
-  };
-
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
